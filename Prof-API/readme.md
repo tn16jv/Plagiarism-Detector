@@ -6,7 +6,5 @@
 - Enter command 'update-database' 
 - Local database is created with fake seed data
 
-## Creating the database
-
 
 
