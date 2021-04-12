@@ -1,0 +1,64 @@
+<app-assignment-info [assignmentId]="assignmentId"></app-assignment-info>
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+  <!-- Student Name Column -->
+  <ng-container matColumnDef="UserName">
+    <mat-header-cell *matHeaderCellDef> Student Login </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+  </ng-container>
+
+  <!-- Student Number Column -->
+  <ng-container matColumnDef="StudentNumber">
+    <mat-header-cell *matHeaderCellDef> Student Number </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.studentNumber}} </mat-cell>
+  </ng-container>
+
+  <!-- File Type Column -->
+  <ng-container matColumnDef="FileType">
+    <mat-header-cell *matHeaderCellDef> File Type </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.fileType}} </mat-cell>
+  </ng-container>
+
+  <!-- Submitted Date Column -->
+  <ng-container matColumnDef="SubmittedDate">
+    <mat-header-cell *matHeaderCellDef> Submitted Date</mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.submittedDate |  date:'MMM d, y h:mm a'}} </mat-cell>
+  </ng-container>
+
+  <!-- Column for download button -->
+  <ng-container matColumnDef="ViewDetails">
+    <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <app-download-assignment [assignmentId]="assignmentId" [studentId]="element.userId">
+      </app-download-assignment>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<!-- Back Button and Compare All Assignments Button -->
+<div>
+  <button mat-raised-button class="backButton" [routerLink]="['/courses/',courseId]" color="warn"
+    aria-label="Navigate Back">Back</button> &nbsp;
+  <button mat-raised-button color="primary" (click)="compareAssignments()" id="assignmentButton">Compare All
+    Assignments</button>
+</div>
+<br><br>
+
+<!-- File Exemption Component  -->
+<div>
+  <h4>Exempt Files</h4>
+  <div *ngIf="hasDownload">
+    <app-download-assignment (close)="hasDownload = false" [assignmentId]="assignmentId"
+      [delete]="true">
+    </app-download-assignment>
+    <br><br>
+  </div>
+  <button mat-raised-button color="primary" title="Upload .zip of files to be exempt from comparisons."
+    [routerLink]="['/courses/' + courseId + '/submit', assignmentId]">
+    <span *ngIf="hasDownload">Re-</span><span>Upload Exemption</span>
+  </button>
+</div>

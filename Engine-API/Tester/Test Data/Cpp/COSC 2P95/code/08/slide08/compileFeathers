@@ -1,0 +1,6 @@
+#!/bin/bash
+rm -rf build/feathers
+rm -f *.o
+mkdir -p build/feathers
+g++ -c src/feathers/feathers.cpp -o build/feathers/feathers.o
+ar rs lib/libFeathers.a build/feathers/feathers.o

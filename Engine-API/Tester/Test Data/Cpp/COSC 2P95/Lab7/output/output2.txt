@@ -1,0 +1,93 @@
+user@user-PC ~/2P95/Lab7
+$ ./a
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 10
+Enter a word for entry: Shark
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 6
+Enter a word for entry: Whale
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 8
+Enter a word for entry: Starfish
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 3
+Enter a word for entry: Swordfish
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+2
+Word: Swordfish
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+Removed Swordfish from the queue.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+Removed Whale from the queue.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+Removed Starfish from the queue.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+Removed Shark from the queue.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+The queue is empty.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+0

@@ -1,0 +1,74 @@
+//For spacing lines
+.line {
+    display: block;
+    margin:0;
+    width: 100%;
+}
+
+//For highlighting plagiarized blocks
+.highlight {
+    background-color: #ffff99 !important;
+    width: 100%;
+}
+
+//For highlighting regular lines
+.highlightGreen {
+    background-color: white;
+    width: 100%;
+}
+
+//For scrolling to a line
+span.scrollTo {
+    background-color: rgb(240, 58, 58);
+    cursor: pointer;
+}
+
+//Font for lines
+pre, pre span {
+    font-family: "Courier New", Courier, monospace;
+}
+
+//To format the left page of report
+.leftHandSide {
+    width: calc(50% - 3em);
+    height: calc(100% - 9.5em);
+    float: left;
+    padding: 1em;
+    overflow-x: auto;
+    background-color: white;
+}
+
+//To format the right page of report
+.rightHandSide {
+    width: calc(50% - 3em);
+    height: calc(100% - 9.5em);
+    float: left;
+    padding: 1em;
+    overflow-x: auto;
+    margin-left: 2em;
+    background-color: white;
+}
+
+//For the scroll body
+.scrollBody {
+    height: calc(100% - 2.5em);
+    overflow-y: auto;
+}
+
+//To Space the top card
+.topCard {
+    width: calc(100% - 2em);
+    height: 3em;
+    margin-bottom: 1em;
+}
+
+//For the dropdowns
+.minForm {
+    min-width: 14em;
+}
+
+//For the page header
+.pageTitle {
+    margin: 0;
+}
+

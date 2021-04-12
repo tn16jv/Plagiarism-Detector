@@ -1,0 +1,640 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Floss.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Floss.Api.Auth.AppAuthRsp">
+            <summary>
+            Response for application-specific authorization request.
+            Contains application-specific JWT or error.
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Auth.Crypto">
+            <summary>
+            Utility methods for Cryptography
+            </summary>
+        </member>
+        <member name="M:Floss.Api.Auth.Crypto.VerifyXmlSignature(System.Xml.XmlDocument,System.Boolean,System.Func{System.Security.Cryptography.X509Certificates.X509Certificate2,System.Boolean})">
+            <summary>
+            Verify signature in the XML document
+            </summary>
+            <param name="xd">XML document</param>
+            <param name="verifySignatureOnly">If <c>true</c> then only signature is verified; otherwise both signature and signing certificate are verified.</param>
+            <param name="signatureNs">XML namespace for signature ("http://www.w3.org/2000/09/xmldsig#"). By default it is empty.</param>
+            <param name="certValidator">Optional signing cetificate validator. If specified it must return true if certificate is considered valid.
+            This method is independent from <paramref name="verifySignatureOnly"/>, i.e. both checks are applied if specified.
+            </param>
+            <returns>bool</returns>
+        </member>
+        <member name="T:Floss.Api.Auth.JwtAuthResult">
+            <summary>
+            result for auth
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Auth.JwtResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Auth.OAuthProviderConfig">
+            <summary>
+            This class contains configuration for both STS and application-internal OAuth mechanisms
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.ClientId">
+            <summary>OAuth ClientID as specified on STS side. 
+            This value is required for Code Flow only and should come from STS Administrator</summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.ClientSecret">
+            <summary>OAuth Client Secret as specified on STS side. 
+            This value is required for Code Flow only and should come from STS Administrator</summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.TokenControllerAddress">
+            <summary>Address of the TokenController. 
+            This value is required for Code Flow only.
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.Resource">
+            <summary>
+            This is published root URL of this application.
+            In terms of STS this is REALM.
+            STS will produce token for this resource (token.Audience will be equal this.Resource).
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.FederationMetadataAddress">
+            <summary>
+            Address of STS Federation metadata.
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.FederationMetadataTtlMinutes">
+            <summary>
+            Lifetime in minutes for the cached Federation data.
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.AppJwtSecret">
+            <summary>
+            This is signing key for application-specific JWT.
+            Generate it like this:
+            <code>Convert.ToBase64String((new HMACSHA256()).Key)</code>
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.AppJwtTtlMinutes">
+            <summary>
+            Application specific JWT lifetime in minutes
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.AppJwtAuthority">
+            <summary>
+            Application specific JWT issuer authority
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.AppJwtAudience">
+            <summary>
+            Application specific JWT audience
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.ActualAppJwtAuthority">
+            <summary>
+            Returns <see cref="P:Floss.Api.Auth.OAuthProviderConfig.AppJwtAuthority"/> or <see cref="P:Floss.Api.Auth.OAuthProviderConfig.Resource"/> if former is not specified.
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.OAuthProviderConfig.ActualAppJwtAudiense">
+            <summary>
+            Returns <see cref="P:Floss.Api.Auth.OAuthProviderConfig.AppJwtAudience"/> or <see cref="P:Floss.Api.Auth.OAuthProviderConfig.ActualAppJwtAuthority"/> if former is not specified.
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Auth.OAuthUtil">
+            <summary>
+            This utility class provides functionality to handle STS token verification (both implicit token and code flow).
+            
+            It also provides simple example mechanism for the application-specific token generation.
+            </summary>
+        </member>
+        <member name="M:Floss.Api.Auth.OAuthUtil.GetAuthTokenByCode(System.String)">
+            <summary>
+            This method is part of OAuth2 code flow.
+            It calls STS TokenControler with authorization code, clientId and secret in order to retrieve actual JWT access token.
+            </summary>
+            <param name="code">Authorization code provided by STS</param>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Auth.OAuthUtil.ValidateStsJwtResponse(Floss.Api.Auth.JwtResponse)">
+            <summary>
+            This method validates JWT response data from STS.
+            Depending on flow there can be <c>refresh token</c> and expiration time as a separate fileds.
+            Access token must always be present.
+            <seealso cref="!:https://blogs.msdn.microsoft.com/vbertocci/2012/11/20/introducing-the-developer-preview-of-the-json-web-token-handler-for-the-microsoft-net-framework-4-5/"/>
+            </summary>
+            <param name="rsp">Response data from STS. The only mandatory field is <see cref="P:Floss.Api.Auth.JwtResponse.access_token"/></param>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Auth.OAuthUtil.ValidateAuthCode(System.String)">
+            <summary>
+            Process authorization code returned from STS Token controller.
+            This method obtains JWT from STS and converts it to the application-specific JWT via <see cref="M:Floss.Api.Auth.OAuthUtil.ValidateStsJwtResponse(Floss.Api.Auth.JwtResponse)"/>
+            </summary>
+            <param name="authCode">Authorization code received from STS</param>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Auth.OAuthUtil.GetAppSpecificJwt(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Create application-specific token by the specified principal.
+            This is just an example implementation.
+            
+            It is up to specific application project team to define what claims are required by your application in both STS and 
+            app-specific tokens.
+            </summary>
+            <param name="stsPrinc">Principal produced from STS JWT token</param>
+            <returns></returns>
+        </member>
+        <member name="T:Floss.Api.Auth.StsOptions">
+            <summary>
+            Helper that allows to retrieve token valiation parameters via FederationMetadata.xml.
+            STS metadata do not change frequently so this data just should be cached and refreshed on some lazy schedule.
+            </summary>
+        </member>
+        <member name="P:Floss.Api.Auth.StsOptions.NextCheck">
+            <summary>
+            When next metadata check should occure
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Controllers.AssignmentController">
+            <summary>
+            Assignment Controller
+            </summary>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentController.GetAssignments(System.Int32)">
+            <summary>
+            Retrieves a list of assignments for a given course.
+            </summary>
+            <param name="courseId">course id</param>
+            <returns> List of Assignment models </returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentController.GetAssignment(System.Int32,System.Int32)">
+            <summary>
+            Retrieves a assignment specified by course and assignment IDs.
+            </summary>
+            <param name="courseId">Course ID that the assignment is from</param>
+            <param name="assignmentId">ID of the assignment itself</param>
+            <returns>An assignment model</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentController.GetAssignmentsForStudent(System.Int32)">
+            <summary>
+            Get a list of assignments for the viewing student from a specified course.
+            </summary>
+            <param name="courseId"></param>
+            <returns>List of Assignment models</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentController.AddAssignment(Floss.Database.Models.Assignment)">
+            <summary>
+            After accepting an Assignment model, it adds that new assignment to the course.
+            </summary>
+            <param name="assignment">assignment</param>
+            <returns>An HTTP response</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentController.UpdateAssignment(Floss.Database.Models.Assignment)">
+            <summary>
+            Updates an existing assignment.
+            </summary>
+            <param name="assignment">assignment</param>
+            <returns>An HTTP response</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentController.GetAssignmentInfo(System.Int32)">
+            <summary>
+            Retrieve an assignment information.
+            </summary>
+            <param name="assignmentId">assignment id</param>
+            <returns>Either an HTTP response message or an Assignment's Info</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentSubmissionController.GetAssignmentSubmissions(System.Int32)">
+            <summary>
+            Retrieves the student's assignemnt submission.
+            </summary>
+            <param name="assignmentId">Assignment's ID</param>
+            <returns>Assignment Submission Model</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentSubmissionController.DeleteDirectory(System.String)">
+            <summary>
+            Deletes a directory and all of its contents.
+            </summary>
+            <param name="targetDir">Target directory</param>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentSubmissionController.UploadAssignment(System.Int32,System.Int32,System.String)">
+            <summary>
+            Student uploads an assignment and assignment gets stripped for comparison.
+            </summary>
+            <param name="courseId">course id</param>
+            <param name="assId">assignment id</param>
+            <param name="filetype">assignment language</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentSubmissionController.DownloadAssignment(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Downloads assignment for currently authenticated student or passed in studentId. If user is professor of course, downloads exemption.
+            </summary>
+            <param name="assignmentId">Assignment id</param>
+            <param name="studentId">Student id</param>
+            <returns>Zip file of assignment</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentSubmissionController.DeleteFile(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Deletes a specified assignment.
+            </summary>
+            <param name="assignmentId">assignment id</param>
+            <param name="studentId">student id</param>
+            <returns>HTTP response message</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentSubmissionController.GetDownloadName(System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the filepath for the assignment
+            </summary>
+            <param name="assignmentId">assignment id</param>
+            <param name="studentId">student id</param>
+            <returns>returns filedownloadmodel</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AssignmentSubmissionController.IsPastDue(System.Int32)">
+            <summary>
+            Checks if the assignment is past the due date
+            </summary>
+            <param name="assignmentId">assignment id</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AuthController.GetByToken(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AuthController.GetAuthorizationId">
+            <summary>
+            gets authorization
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.AuthController.GetUserErrorMsg(System.Exception,System.String,System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="fmt"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.CourseController.GetCourse(System.Int32)">
+            <summary>
+            gets the course
+            </summary>
+            <param name="courseId">course id</param>
+            <returns>course</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.CourseController.GetCourses(System.Int32)">
+            <summary>
+            gets a list of courses for a prof
+            </summary>
+            <param name="profId">prof id</param>
+            <returns>list of courses</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.CourseController.GetStudentCourses(System.Int32)">
+            <summary>
+            gets a list of enrolled courses for the student
+            </summary>
+            <param name="userId">student user id</param>
+            <returns>list of courses</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.CourseController.GetCourseInfo(System.Int32)">
+            <summary>
+            gets course info 
+            </summary>
+            <param name="courseId">course id</param>
+            <returns>course</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.CourseController.AddCourse(Floss.Database.Models.Course)">
+            <summary>
+            adds a course to the database
+            </summary>
+            <param name="course"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.CourseController.UpdateCourse(Floss.Database.Models.Course)">
+            <summary>
+            updates a current course
+            </summary>
+            <param name="course">course</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.EnrollmentController.GetEnrolledStudents(System.Int32)">
+            <summary>
+            gets a list of students in a course
+            </summary>
+            <param name="courseId">course id</param>
+            <returns>list of users</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.EnrollmentController.RemoveStudentFromCourse(System.Int32,System.Int32)">
+            <summary>
+            removes a student from a course
+            </summary>
+            <param name="studentId">student id</param>
+            <param name="courseId">course id</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.EnrollmentController.EnrollStudents(Floss.Api.Models.EnrollStudentModel)">
+            <summary>
+            enrolls students to a course
+            </summary>
+            <param name="model">enrollstudentmodel</param>
+            <returns>string</returns>
+        </member>
+        <member name="T:Floss.Api.Controllers.FileUploadController">
+            <summary>
+            Class for adding custom features to the swagger ui
+            </summary>
+        </member>
+        <member name="M:Floss.Api.Controllers.FileUploadController.Apply(Swashbuckle.AspNetCore.Swagger.Operation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Adds custom features to the swagger ui
+            </summary>
+            <remarks>
+            This functions applies the options to add the upload a file button onto the swagger ui.
+            </remarks>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismController.ReceiveDataFromCompareCall(System.Collections.Generic.List{Floss.Api.PlagEngineModels.Report},System.Collections.Generic.List{Plagiarism_Engine_Models.File},System.Int32)">
+            <summary>
+            This is a helper method to combine results of engine API with the files
+            </summary>
+            <param name="reports">list of reports</param>
+            <param name="studentFiles">list of comparison files</param>
+            <param name="assignmentId">assignment id</param>
+            <returns>ComparisonResults</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismController.CompareRepo(System.Int32)">
+            <summary>
+            makes a comparison call for an assignment
+            </summary>
+            <param name="AssignId">assignment id</param>
+            <returns>guid</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismController.CompareMulti(System.Int32,System.Collections.Generic.List{System.Int32})">
+            <summary>
+            comparison for multiple assignments from selected students
+            </summary>
+            <param name="AssignId">assignment id</param>
+            <param name="userIds"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismController.GetCompare(System.Collections.Generic.List{Floss.Database.Models.AssignmentSubmission},System.Int32,System.Int32)">
+            <summary>
+            makes the comparison call for the plagiarism api 
+            </summary>
+            <param name="assSub">list of assignment submissions</param>
+            <param name="assId">assignment id</param>
+            <param name="profId">prof who submitted the request</param>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismController.GetComparedResults(System.String)">
+            <summary>
+            get the comparison results
+            </summary>
+            <param name="guid">uid</param>
+            <returns>comparisonresults</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismController.stmpsendemail(System.Int32,System.String,System.String,System.Int32)">
+            <summary>
+            sends an email for the comparison results being finished
+            </summary>
+            <param name="profId">prof id</param>
+            <param name="pguid">guid</param>
+            <param name="courseName">course name</param>
+            <param name="assignmentId">assignment id</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismController.GetListOfResults">
+            <summary>
+            get a list of results for a prof
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismController.PushCompareResults(Plagiarism_Engine_Models.MessageModel)">
+            <summary>
+            saves the comparison results
+            </summary>
+            <param name="resultModel">result model</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismTestController.UploadTest(System.String)">
+            <summary>
+            uploades of the test and making of the comparison call
+            </summary>
+            <param name="fileType">language used</param>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismTestController.getType(System.String)">
+            <summary>
+            gets the type of assignment it is
+            </summary>
+            <param name="path">path</param>
+            <returns>result</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismTestController.GetCompare(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Int32,System.String)">
+            <summary>
+            calls the comparison api
+            </summary>
+            <param name="paths">paths</param>
+            <param name="filetype">language</param>
+            <param name="profId">prof id</param>
+            <param name="uploadedFileName">filename</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismTestController.PushCompareResults(Plagiarism_Engine_Models.MessageModel)">
+            <summary>
+            saves the results from the comparison results
+            </summary>
+            <param name="resultModel">result model</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismTestController.stmpsendemail(System.Int32,System.String,System.String)">
+            <summary>
+            sends the prof an email that the comparison test results are complete
+            </summary>
+            <param name="profId">prof id</param>
+            <param name="pguid">id</param>
+            <param name="reportName">report name</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismTestController.ReceiveDataFromTestCompareCall(System.Collections.Generic.List{Floss.Api.PlagEngineModels.Report},System.Collections.Generic.List{Plagiarism_Engine_Models.File},System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            This is a helper method to combine results of engine API with the files
+            </summary>
+            <param name="reports"></param>
+            <param name="studentFiles"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.PlagiarismTestController.getFolderName(System.String)">
+            <summary>
+            gets the assignments folder name
+            </summary>
+            <param name="path">path</param>
+            <returns>assignments folder name</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.UserController.GetUser(System.Nullable{System.Int32})">
+            <summary>
+            get a user from the db
+            </summary>
+            <param name="userId">user id</param>
+            <returns>user model</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.UserController.GetUsers">
+            <summary>
+            gets a list of users
+            </summary>
+            <returns>list of users</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.UserController.UpdateUser(Floss.Database.Models.User)">
+            <summary>
+            update a user in the database
+            </summary>
+            <param name="user">user</param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Controllers.UserController.AdminUpdateUser(Floss.Api.Models.UserModel)">
+            <summary>
+            Update user by an admin 
+            </summary>
+            <param name="userModel"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.FileToModel.CodeStripper.StripAssignment(System.String,System.String)">
+            <summary>
+            function to call the strip function based on the language
+            </summary>
+            <param name="path"></param>
+            <param name="progType"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.FileToModel.CodeStripper.cppStrip(System.String)">
+            <summary>
+            the c++ strip
+            </summary>
+            <param name="path"></param>
+            <returns>result of the strip</returns>
+        </member>
+        <member name="M:Floss.Api.FileToModel.CodeStripper.javaStrip(System.String)">
+            <summary>
+            the java strip
+            </summary>
+            <param name="path"></param>
+            <returns>result of the strip</returns>
+        </member>
+        <member name="M:Floss.Api.FileToModel.CodeStripper.cStrip(System.String)">
+            <summary>
+            the c strip
+            </summary>
+            <param name="path"></param>
+            <returns>result of the strip</returns>
+        </member>
+        <member name="M:Floss.Api.FileToModel.FileModelConvert.filesToStrings(System.String)">
+            <summary>
+            Given a path to a directory, it will read all the files in it to strings.
+            </summary>
+            <returns>List of strings, each string holding all the contents of a file.</returns>
+        </member>
+        <member name="M:Floss.Api.FileToModel.FileModelConvert.filesToClass(System.String,System.Int32,System.String,System.Boolean)">
+            <summary>
+            Takes a directory path to a student's unzipped assignment folder, their student id, and the filetype
+            they wrote their assignment in.
+            </summary>
+            <returns>File class with all relevant information about an assignment submission.</returns>
+        </member>
+        <member name="M:Floss.Api.FileToModel.Unzip.unpackFiltered(System.String,System.String,System.String)">
+            <summary>
+            Given a path that references a .zip file, it will unzip files with desired extensions into a new directory.
+            </summary>
+        </member>
+        <member name="M:Floss.Api.FileToModel.Unzip.unpackFilteredWithoutUnzipping(System.String,System.String,System.String)">
+            <summary>
+            Given a path that references a directory file, it will save files with desired extensions into a new directory.
+            </summary>
+        </member>
+        <member name="M:Floss.Api.Filters.AuthenticationFilter.OnAuthorization(Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:Floss.Api.Helpers.EmailValidator">
+            <summary>
+            class for email verifications
+            </summary>
+        </member>
+        <member name="M:Floss.Api.Helpers.EmailValidator.ValidateStudentEmail(System.String)">
+            <summary>
+            checks if email is a students brock email
+            </summary>
+            <param name="emailString">email</param>
+            <returns>email address</returns>
+        </member>
+        <member name="M:Floss.Api.Helpers.EmailValidator.ValidateBrockEmail(System.String)">
+            <summary>
+            checks if email is a brock email
+            </summary>
+            <param name="emailString">email</param>
+            <returns>email address</returns>
+        </member>
+        <member name="T:Floss.Api.Helpers.PlagiarismHelper">
+            <summary>
+            class for multi used functions
+            </summary>
+        </member>
+        <member name="M:Floss.Api.Helpers.PlagiarismHelper.WriteToBlob(System.String)">
+            <summary>
+            to save the message
+            </summary>
+            <param name="messageBody"></param>
+            <returns>string</returns>
+        </member>
+        <member name="M:Floss.Api.Helpers.PlagiarismHelper.DeleteDirectory(System.String)">
+            <summary>
+            deletes a directory and all its files
+            </summary>
+            <param name="targetDir">target directory</param>
+        </member>
+        <member name="T:Floss.Api.Models.AssignmentInfoModel">
+            <summary>
+            holds information about an assignment
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Models.AssignmentSubmissionModel">
+            <summary>
+            model for assignments that have been submitted by students
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Models.EnrollStudentModel">
+            <summary>
+            model of student for who will be enrolled into a class
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Models.FileDownloadModel">
+            <summary>
+            model for assignment download
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Models.StudentAssignmentModel">
+            <summary>
+            model for an assignment an prof creates
+            </summary>
+        </member>
+        <member name="T:Floss.Api.Models.UserModel">
+            <summary>
+            model for a user of the website
+            </summary>
+        </member>
+        <member name="M:Floss.Api.Startup.CreateTokenValidationParams(Floss.Api.Auth.OAuthProviderConfig)">
+            <summary>
+            Configure tken validation parameters for applications-pecific JWT
+            </summary>
+            <param name="cfg"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

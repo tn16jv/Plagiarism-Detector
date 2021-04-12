@@ -1,0 +1,6 @@
+<!-- Download Assignment Button -->
+<button mat-raised-button color="primary" (click)="downloadFile()" title="Download .zip">{{fileName}}</button>
+<ng-container *ngIf="delete">
+    &nbsp;
+    <button mat-raised-button color="warn" (click)="deleteFile()" title="Delete .zip">Delete {{fileName}}</button>
+</ng-container>

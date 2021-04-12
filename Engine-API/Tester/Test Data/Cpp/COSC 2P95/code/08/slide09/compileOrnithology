@@ -1,0 +1,7 @@
+#!/bin/bash
+rm -rf build/ornithology
+rm -r *.o
+g++ -c -fpic src/ornithology/Bird.cpp src/ornithology/Raptor.cpp -I src/feathers
+mkdir -p build/ornithology
+mv *.o build/ornithology
+g++ -shared -o lib/libOrnithology.so build/ornithology/Bird.o build/ornithology/Raptor.o

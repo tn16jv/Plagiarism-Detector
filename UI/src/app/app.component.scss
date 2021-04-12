@@ -1,0 +1,41 @@
+.container {
+    position: fixed;
+    left: 14em;
+    top: 2em;
+    width: calc(100% - 16em);
+    padding: 1em;
+    height: calc(100% - 4em);
+    overflow-y: auto;
+ }
+
+.shift {
+    left: 28em !important;
+    width: calc(100% - 30em);
+}
+
+.minimized {
+    left: 18em !important;            // ARM left: 16em !important;
+    // width: calc(100% - 18em);
+    width: calc(100% - 20em);
+}
+
+// ARM
+.mainMinimizedSecMax {
+    left: 17em !important;
+    // width: calc(100% - 20em);
+    width: calc(100% - 19em);
+    background-color: white;
+}
+.mainContainerMinimized {
+    left: 3em !important;
+    width: calc(100% - 5em);
+    background-color: white;
+}
+
+.allContainerMinimized {
+    left: 8em !important;
+    width: calc(100% - 10em);
+    background-color: white;
+}
+
+

@@ -1,0 +1,42 @@
+//Space the tabs
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+//Format font and size of tabs
+ul li a {
+    font-size: 16px;
+    display: block;
+    width: 100%;        
+     // width: 12em !important; // ARM
+    margin: auto 0;
+    text-decoration: none;
+    padding: 1em;
+    color: white;
+}
+
+//Format font and size of tabs
+ul li {
+    width: 100%;
+    height: 3em;
+    cursor: pointer;
+    list-style-type: none;
+    padding: 0 !important;
+    border-bottom: 0.01em solid white;
+}
+
+//Format border of tabs
+ul li:first-child {
+    border-top: 0.01em solid white;
+}
+
+//Add color when hovering over tabs
+ul li:hover, ul li.active {
+    background-color: #ff4081;
+}
+
+//Add color to selcted tab
+.selected {
+    background-color: #ff4081;
+}

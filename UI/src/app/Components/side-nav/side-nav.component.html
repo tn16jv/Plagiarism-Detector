@@ -1,0 +1,15 @@
+<!-- Side Navigation Bar -->
+<div [attr.class]="!show ? 'main-sidenav' : 'main-sidenav-toggle'">
+    <div [attr.class]="!show ? 'top-sidenav': 'top-sidenav-toggle'">
+      <div class="logo">
+        <h2 *ngIf="!show">FLOSS </h2>   
+        <a [class.pushed]="!show" id="toggleMainNav"   (click)="toggleMainNav()">
+            <i class="fa fa-bars bigger" aria-hidden="true"></i>       
+        </a>
+      </div>
+    </div>
+    <!-- This div section needs to be scrollable! -->
+     <div [attr.class]="!show ? 'env-sidenav' : 'env-sidenav-toggle'">
+      <app-env-side-nav [show]="show"></app-env-side-nav>
+    </div>
+</div>

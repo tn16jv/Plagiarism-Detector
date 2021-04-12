@@ -1,0 +1,59 @@
+<div class="flex-center-container">
+  <!-- Edit Assignment Component -->
+  <mat-card class="flex-center-content">
+    <h3>Edit Assignment</h3>
+    <hr>
+    <br>
+    <div class="form-container">
+      <ng-container>
+
+        <!-- Assignment Name Field-->
+        <div class="space">
+          <mat-form-field id="nameField">
+            <input matInput [(ngModel)]="assignment.assignmentName" placeholder="Assignment Name" required>
+          </mat-form-field>
+        </div>
+
+        <!-- Due Date and Time Field-->
+        <div class="space">
+          <mat-form-field>
+            <input matInput [min]="minDate" [matDatepicker]="dueDatePicker" [(ngModel)]="assignment.dueDate"
+              placeholder="Due Date" disabled required>
+            <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker disabled="false" #dueDatePicker></mat-datepicker>
+          </mat-form-field>          
+          <mat-form-field id="timePicker">
+            <input matInput [matTimeSelect]="dueTime" [(ngModel)]="assignment.dueDate" placeholder="Time" disabled required>
+            <mat-time-select-toggle matSuffix [for]="dueTime"></mat-time-select-toggle>
+            <mat-time-select disabled="false" #dueTime></mat-time-select>
+          </mat-form-field>     
+        </div>
+
+        <!-- Late Due Date and Time Field-->
+        <div class="space">
+          <mat-form-field>
+            <input matInput [min]="minDate" [matDatepicker]="lateDueDatePicker" [(ngModel)]="assignment.lateDueDate"
+              placeholder="Late Due Date" disabled required>
+            <mat-hint class="error" *ngIf=pastDueDate()> <strong>Late due date</strong> must not be<strong> before </strong>due date. </mat-hint>            
+            <mat-datepicker-toggle matSuffix [for]="lateDueDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker disabled="false" #lateDueDatePicker></mat-datepicker>          
+          </mat-form-field>
+          <mat-form-field id="timePicker">
+            <input matInput [matTimeSelect]="lateDueTime" [(ngModel)]="assignment.lateDueDate" placeholder="Time" disabled required>
+            <mat-time-select-toggle matSuffix [for]="lateDueTime"></mat-time-select-toggle>
+            <mat-time-select disabled="false" #lateDueTime></mat-time-select>
+          </mat-form-field>              
+        </div>      
+      </ng-container>
+    </div>
+
+    <!-- Cancel Button & Update Button -->
+    <div>
+      <button mat-raised-button class="backButton" color="warn" aria-label="Navigate Back"
+        [routerLink]="['/courses', assignment.courseId]">Cancel</button> &nbsp;
+      <button mat-raised-button class="addButton" color="primary" (click)="updateAssignment()" aria-label="Add Host Group"
+        [disabled]="notValid()">Update</button>
+    </div>
+  </mat-card>
+
+</div>

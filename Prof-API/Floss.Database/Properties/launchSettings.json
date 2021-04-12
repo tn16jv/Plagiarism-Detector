@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Floss.Database": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Local"
+      }
+    }
+  }
+}

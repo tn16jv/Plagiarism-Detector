@@ -1,0 +1,93 @@
+user@user-PC ~/2P95/Lab7
+$ ./a
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 5
+Enter a word for entry: Dog
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 0
+Enter a word for entry: Cat
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 0
+Enter a word for entry: Elephant
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 3
+Enter a word for entry: Turtle
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+2
+Word: Cat
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+Removed Cat from the queue.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+Removed Elephant from the queue.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+Removed Turtle from the queue.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+Removed Dog from the queue.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+3
+The queue is empty.
+
+Select an option:
+1. Add Entry
+2. Peek at Next Element
+3. Remove Next Element
+0. Quit
+0

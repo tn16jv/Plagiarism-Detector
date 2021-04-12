@@ -1,0 +1,55 @@
+<h3 class="pageTitle">{{comparisonInfo.courseName}}/{{comparisonInfo.assignmentName}}</h3>
+
+<!-- Plagiarism Report Page -->
+<mat-card class="topCard">
+
+  <!-- Dropdowns to select assignments to view in the plagiarism report page -->
+  <mat-form-field class="minForm">
+    <mat-select placeholder="Assignment Name" [(ngModel)]="selectedUser" (change)="updateSelectedUser()">
+      <!-- Display each user listed in the FileByLineModel -->
+      <mat-option *ngFor="let user of results" [value]="user">
+        {{user.assignmentName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  &nbsp;
+  <ng-container *ngIf="selectedUser != null">
+    <mat-form-field class="minForm">
+      <mat-select placeholder="Plagiarism Report" [(ngModel)]="leftSide" (change)="getRightHandUser()">
+        <mat-option *ngFor="let copyFrom of selectedUser.copyFrom" [value]="copyFrom">
+          {{copyFrom.assignName}} - {{copyFrom.copiedPercentage}}%
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+
+</mat-card>
+
+<!-- Left Page in the Plagiarism Report Page -->
+<div class="leftHandSide mat-elevation-z8">
+  <ng-container *ngIf="selectedUser != null && leftSide != null">
+      <!-- Display opposite user's name -->
+      <span *ngIf="rightSide != null">        
+        <b>{{rightSide.assignName}}</b>
+      </span>
+      <hr>
+      <div class="scrollBody">
+        <pre *ngFor="let line of leftSide.lines | keyvalue:descOrder" class="line" [class.highlight]="line.value.copied" [class.highlightGreen]="line.value.isMethod" 
+          [attr.id]="'l'+line.key"><span (click)="scroll('r'+line.value.copiedLineId)" [class.scrollTo]="line.value.copiedLineId != null">{{line.key}}:</span>{{line.value.line}}</pre>
+      </div>
+    </ng-container>
+</div>
+
+<!-- Right Page in the Plagiarism Report Page -->
+<div class="rightHandSide mat-elevation-z8">
+  <ng-container *ngIf="leftSide != null && getRightHandUser() && rightSide != null">
+    <span [title]="leftSide.copiedPercentage + '% copied from ' + rightSide.assignName"><b>{{leftSide.assignName}} - </b>
+      <!-- Show Percentage copied from left page -->
+      <i>{{leftSide.copiedPercentage}}% copied from {{rightSide.assignName}}</i></span>
+    <hr>
+    <div class="scrollBody">
+      <pre *ngFor="let line of rightSide.lines | keyvalue:descOrder" class="line" [class.highlight]="line.value.copied" [class.highlightGreen]="line.value.isMethod"
+        [attr.id]="'r'+line.key"><span (click)="scroll('l'+line.value.copiedLineId)" [class.scrollTo]="line.value.copiedLineId != null">{{line.key}}:</span>{{line.value.line}}</pre>
+    </div>
+  </ng-container>
+</div>

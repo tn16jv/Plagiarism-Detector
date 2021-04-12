@@ -1,0 +1,9 @@
+<!-- Confirm Dialog Component -->
+<h1 mat-dialog-title>Confirm {{data.type}}</h1>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>  
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Confirm</button>
+</div>

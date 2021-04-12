@@ -1,0 +1,2 @@
+#!/bin/bash
+g++ -o birdDemo src/client/clientBirdies.cpp lib/libFeathers.a lib/libOrnithology.a -Isrc/feathers -Isrc/ornithology

@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"; // LIGHT
+// @import '@angular/material/prebuilt-themes/purple-green.css'; // DARK
+@import "~ngx-material-time-select/prebuilt-themes/indigo-pink.css";
+
+@import '~@angular/material/theming';
+
+$custom-typography: mat-typography-config(
+    $font-family: 'Open Sans, sans-serif'
+);
+
+@include angular-material-typography($custom-typography);
+
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.backButton {
+    margin-top: 1em !important;
+}
+
+.error{
+    color: #f44336 !important;    
+}
+/*
+.mat-form-field-infix{
+    width:300px !important;
+  }*/

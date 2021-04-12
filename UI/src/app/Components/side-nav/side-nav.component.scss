@@ -1,0 +1,94 @@
+//Format the main side nav
+.main-sidenav {
+    background-color: #303030;
+    height: calc(100% - 2em);
+    width: 12em;
+    position: fixed;
+    top: 2em;
+    left: 0;
+    padding: 1em;
+    color: white;    
+}
+
+//Format the side nav environment
+.env-sidenav {
+    position: fixed;    
+    height: calc(100% - 14em);
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 14em;    
+    left: 0;
+
+}
+
+//Format the top of the side nav
+.top-sidenav {
+    height: 10em;
+    width: 12em;
+}
+
+
+#environmentSelector {
+    color: #fff;
+}
+
+::ng-deep #environmentSelector div.mat-form-field-underline.mat-form-field-underline {
+    border-bottom:  solid white;
+}
+
+::ng-deep #environmentSelector .mat-select-trigger.mat-select-arrow:after {
+    color: white;
+}
+
+::ng-deep #environmentSelector div.mat-select-arrow-wrapper div.mat-select-arrow {
+    color: white; 
+}
+
+::ng-deep #environmentSelector .mat-select-value {
+    color: white;
+}
+
+
+// ARM
+.logo{
+    display: inline-flex;
+    vertical-align: middle;
+    align-items: center;
+  }
+  
+  #toggleMainNav{
+      cursor: pointer;
+  }
+
+  .pushed {
+    margin-left: 5.75em;
+  }
+
+  .bigger {
+      font-size: 1.75em;
+  }
+
+  .main-sidenav-toggle {
+      position: fixed;
+      width: 1em;
+      height: calc(100% - 2em);
+      top: 2em;
+      left: 0;
+      padding: 1em;
+      color: white;
+      background-color: #303030;
+    //   z-index: 1;
+  }
+  
+  .env-sidenav-toggle {
+      position: fixed;
+      width: 3em;
+      height: calc(100% - 14em);
+      overflow-y: auto;
+      overflow-x: hidden;
+      left: 0;
+  }
+  .top-sidenav-toggle {
+      height: 10em;
+      width: 3em;
+  }

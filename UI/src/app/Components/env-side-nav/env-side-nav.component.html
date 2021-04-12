@@ -1,0 +1,47 @@
+<!-- Side Navigation Bar Component -->
+<ul>
+  <li>
+      <a [routerLink]="['/home']" routerLinkActive="selected">
+        <i class="fa fa-home" aria-hidden="true"></i> 
+        <span *ngIf="!show"> &nbsp; Home</span>
+      </a>
+  </li>
+  <!-- Professor OR Administrator OR Student -->
+  <!-- Courses Tab -->    
+  <li *ngIf="authorizationRoleId == 2 || authorizationRoleId == 1 || authorizationRoleId == 3"> 
+      <a [routerLink]="['/courses']" routerLinkActive="selected"> 
+        <i class="fas fa-school" aria-hidden="true"></i>   
+        <span *ngIf="!show"> &nbsp; Courses</span>
+      </a>
+   </li>
+   <!-- Professor OR Administrator -->
+   <!-- Enrollment Tab -->   
+   <li *ngIf="authorizationRoleId == 2 || authorizationRoleId == 1">
+    <a [routerLink]="['/enrollment']" routerLinkActive="selected">
+      <i class="fas fa-address-book" aria-hidden="true"></i>  
+      <span *ngIf="!show"> &nbsp; Enrollment</span>
+    </a>
+  </li>
+  <!-- Plagiarism Reports Tab -->
+   <li *ngIf="authorizationRoleId == 2 || authorizationRoleId == 1">
+    <a [routerLink]="['/plagiarism']" routerLinkActive="selected"> 
+      <i  class="fas fa-chart-line" aria-hidden="true"></i> 
+      <span *ngIf="!show"> &nbsp; Plagiarism Reports</span>
+    </a>
+  </li>
+  <!-- Account Settings Tab -->
+  <li *ngIf="authorizationRoleId == 2 || authorizationRoleId == 1 || authorizationRoleId == 3">
+    <a [routerLink]="['/account']" routerLinkActive="selected"> 
+      <i class="fas fa-cog" aria-hidden="true"></i>
+      <span *ngIf="!show"> &nbsp; Account Settings</span>
+    </a>
+  </li>
+  <!-- Administrator -->
+  <!-- User Management Tab -->
+  <li *ngIf="authorizationRoleId == 2">
+    <a [routerLink]="['/users']" routerLinkActive="selected"> 
+      <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+      <span *ngIf="!show"> &nbsp; User Management</span>
+    </a>
+  </li>
+</ul>

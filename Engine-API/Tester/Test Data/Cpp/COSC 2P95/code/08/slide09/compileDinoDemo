@@ -1,0 +1,2 @@
+#!/bin/bash
+g++ -o dinoDemo src/client/clientRAWR.cpp -L./lib/ -lOrnithology -lPaleontology -Isrc/feathers -Isrc/ornithology -Isrc/paleontology

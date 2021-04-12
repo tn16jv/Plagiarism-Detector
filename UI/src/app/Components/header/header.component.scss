@@ -1,0 +1,17 @@
+//Format header of site
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2em;
+    background-color: rgb(73, 65, 65);
+    width: 100%;
+    color: white;
+}
+
+//Format logged in username to displayed on the header 
+.name {
+    position: fixed;
+    right: 1em;
+    top: 0.5em;
+}

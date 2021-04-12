@@ -1,0 +1,51 @@
+<div class="flex-center-container">
+    <!-- Edit User Component -->
+    <mat-card class="flex-center-content">
+      <h3>Edit Account Information</h3>
+      <hr>
+      <br>
+      <div class="form-container">
+        <ng-container>
+          <!-- User Name Field -->
+          <div>
+            <mat-form-field>
+              <input matInput [(ngModel)]="user.displayName" placeholder="Name" required>
+            </mat-form-field>
+          </div>
+          <!-- Student Number Field -->
+          <div>
+            <mat-form-field>
+              <input matInput [(ngModel)]="user.studentNumber" placeholder="Student Number">
+              <mat-hint class="error" *ngIf=invalidStudentNum()> Must be a 7 digit number </mat-hint>
+            </mat-form-field>
+          </div>
+          <!-- Email Field -->
+          <div>
+            <mat-form-field>
+              <input matInput [(ngModel)]="user.email" placeholder="Email" required>
+            </mat-form-field>
+          </div>
+          <!-- User Role Dropdown -->
+          <div>          
+              <mat-form-field>
+                <mat-select placeholder="Role" [(ngModel)]="user.roleId" required>
+                  <mat-option *ngFor="let role of roles" [value]="role.id">
+                    {{role.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+        </ng-container>
+      </div>
+  
+      <br>
+      <!-- Back & Update Button -->
+      <div>
+        <button mat-raised-button class="backButton" color="warn" aria-label="Navigate Back"
+          [routerLink]="['/users']">Back</button> &nbsp;
+        <button mat-raised-button color="primary" (click)="updateUser()" [disabled]="notValid()">Update</button>
+      </div>
+    </mat-card>
+  
+  </div>
+  

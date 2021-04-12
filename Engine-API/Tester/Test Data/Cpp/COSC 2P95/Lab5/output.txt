@@ -1,0 +1,98 @@
+[dp14hx@sandcastle Lab5]$ ./s
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 0
+Enter a word for entry: Dylan
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 0
+Enter a word for entry: Jordan
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 3
+Enter a word for entry: Pavao
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 2
+Enter a word for entry: Olivera
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 3
+Enter a word for entry: Alex
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+1
+What is the priority? high(0 - 10)low : 7
+Enter a word for entry: Mel
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+2
+Word: Dylan Time: 0
+
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+2
+Word: Jordan Time: 0
+
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+2
+Word: Olivera Time: 2
+
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+2
+Word: Pavao Time: 3
+
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+2
+Word: Alex Time: 3
+
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+2
+Word: Mel Time: 7
+
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+2
+The queue is empty
+
+Select an option:
+1. Add Entry
+2. Remove Next Element
+0. Quit
+0
+[dp14hx@sandcastle Lab5]$

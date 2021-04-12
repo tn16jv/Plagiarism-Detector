@@ -1,0 +1,19 @@
+user@user-PC ~/2P95/Lab9
+$ ./c
+About to commence; PID: 14100
+
+Enter number of hill climbers (8 = max & 0 = quit): 3
+
+ Global Best Height: -959.64
+
+ X Position: 512
+
+ Y Position: 404.2
+
+Thread is done..
+Thread is done..
+Thread is done..
+
+
+
+Enter number of hill climbers (8 = max & 0 = quit): 0

@@ -1,0 +1,13 @@
+<app-header></app-header>
+<app-side-nav [show]="show" [attr.class]="!show ? 'main-sidenav' : 'main-sidenav-toggle'"></app-side-nav> 
+<!-- <app-secondary-nav [show]="show" (secondaryMinimized)="secondaryMinimized = !secondaryMinimized" [selectedNav]="secondaryNav" [min]="secondaryMinimized" *ngIf="secondaryNav != 'hidden'"></app-secondary-nav> -->
+<div class="container mat-app-background"  
+[class.mainContainerMinimized]="show && secondaryNav == 'hidden'" 
+[class.mainMinimizedSecMax]= "show && !secondaryMinimized && secondaryNav != 'hidden'"
+[class.shift]="secondaryNav != 'hidden' && !show" 
+[class.minimized]="secondaryMinimized && secondaryNav != 'hidden' && !show"
+[class.allContainerMinimized]="secondaryMinimized && secondaryNav != 'hidden' && show"> 
+     <router-outlet></router-outlet>
+</div>
+
+<app-loader></app-loader>

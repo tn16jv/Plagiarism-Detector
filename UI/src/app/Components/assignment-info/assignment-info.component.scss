@@ -1,0 +1,19 @@
+//For spacing course info card
+.courseInfoCard {
+    margin-bottom: 1em;
+}
+
+//Font size for content in course info card
+.courseInfoCard mat-card-content mat-form-field input {
+    font-size: 1.25em !important;
+}
+
+//Font size for content in course info card
+::ng-deep .courseInfoCard .mat-form-field-label {
+    font-size: 1.25em !important;
+}
+
+//For spacing the header above the course info card
+::ng-deep .mat-card-header-text {
+    margin: 0 !important;
+}

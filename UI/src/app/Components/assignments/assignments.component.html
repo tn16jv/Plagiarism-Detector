@@ -1,0 +1,69 @@
+<app-course-info [courseId]="courseId"></app-course-info>
+
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Name Column -->
+  <ng-container matColumnDef="AssignmentName">
+    <mat-header-cell *matHeaderCellDef> Assignment Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.assignmentName}} </mat-cell>
+  </ng-container>
+
+  <!-- Component Type -->
+  <ng-container matColumnDef="DueDate">
+    <mat-header-cell *matHeaderCellDef> Due Date </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.dueDate | date:'MMM d, y h:mm a'}} </mat-cell>
+  </ng-container>
+
+  <!-- Component Type -->
+  <ng-container matColumnDef="LateDueDate">
+    <mat-header-cell *matHeaderCellDef> Late Due Date </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.lateDueDate |  date:'MMM d, y h:mm a'}} </mat-cell>
+  </ng-container>
+
+  <!-- Component Type -->
+  <ng-container matColumnDef="SubmittedDate">
+    <mat-header-cell *matHeaderCellDef> Submitted Date </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.submittedDate |  date:'MMM d, y h:mm a'}} </mat-cell>
+  </ng-container>
+
+  <!-- View Details -->
+  <ng-container matColumnDef="ViewDetails">
+    <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <!-- Professor/Admin view Submissions -->
+      <div *ngIf="authorizationRoleId == 2 || authorizationRoleId == 1">
+        <button mat-raised-button color="primary"
+          [routerLink]="['/courses/' + courseId + '/submissions', element.assId]">View</button>
+        &nbsp;
+        <button mat-raised-button color="accent"
+          [routerLink]="['/courses/edit/'+ courseId + '/', element.assId]">Edit</button>        
+      </div>
+
+      <!-- Student Submission -->
+      <div *ngIf="authorizationRoleId == 3">
+        <!-- Submit on time -->
+        <button mat-raised-button color="primary" *ngIf="canSubmit(element) == 0"
+          [routerLink]="['/courses/' + courseId + '/submit', element.assId]">Submit</button>
+
+        <!-- Submit late -->
+        <button mat-raised-button color="warn" *ngIf="canSubmit(element) == 1"
+          [routerLink]="['/courses/' + courseId + '/submit', element.assId]">Submit Late</button>
+
+        <!-- No submitting alloweddd -->
+        <button mat-raised-button color="primary" *ngIf="canSubmit(element) == -1 && !unsubmitted(element)"
+          [routerLink]="['/courses/' + courseId + '/submit', element.assId]">View</button>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="getColumns()"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: getColumns();" [class.unsubmitted]="unsubmitted(row)" [class.late]="isLate(row)" [class.onTime]="submittedOnTime(row)"></mat-row>
+</mat-table>
+
+<!-- Back Button and Add Assignment Button -->
+<button mat-raised-button class="backButton" color="warn" (click)="navigateBack()"
+  aria-label="Navigate Back">Back</button>
+<span *ngIf="authorizationRoleId == 2 || authorizationRoleId == 1">
+  <button mat-raised-button color="primary" [routerLink]="['/assignments/add',courseId]" id="assignmentButton">Add
+    Assignment</button>
+</span>

@@ -1,0 +1,58 @@
+<div class="flex-center-container">
+    <!-- Edit Course Component -->
+    <mat-card class="flex-center-content">
+      <h3>Edit Course</h3>
+      <hr>
+      <br>
+      <div class="form-container">
+        <ng-container>          
+          <!-- Department Name Dropdown -->
+          <div class="space">          
+            <mat-form-field>
+              <mat-select placeholder="Department Name" [(ngModel)]="course.departmentName" required>
+                <mat-option *ngFor="let department of departments" [value]="department">
+                  {{department}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Course Code Field -->
+          <div class="space">
+            <mat-form-field id="nameField">
+              <input matInput [(ngModel)]="course.courseCode" placeholder="Course Code" required>
+              <mat-hint class="error" *ngIf=invalidCourseCode()> Invalid Course Code </mat-hint>
+            </mat-form-field>
+          </div>
+          <!-- Course Year Dropdown -->
+          <div class="space">
+            <mat-form-field>
+              <mat-select placeholder="Year" [(ngModel)]="course.year" required>
+                <mat-option *ngFor="let year of years" [value]="year">
+                  {{year}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!-- Course Duration Dropdown -->
+          <div class="space">    
+            <mat-form-field>
+              <mat-select placeholder="Duration" [(ngModel)]="course.duration" required>
+                <mat-option *ngFor="let dur of durations" [value]="dur">
+                  {{dur}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </ng-container>
+      </div>
+
+      <!-- Cancel & Update Buttons -->
+      <div>
+        <button mat-raised-button class="backButton" color="warn" (click)="navigateBack()" aria-label="Navigate Back">Cancel</button> &nbsp;
+        <button mat-raised-button class="addButton" color="primary" (click)="updateCourse()"aria-label="Add Host Group"
+          [disabled]="notValid()">Update</button>
+      </div>
+    </mat-card>
+  
+  </div>

@@ -1,0 +1,49 @@
+<!-- Enrollment Component -->
+<h3>Enrollment</h3>
+<mat-card class="mat-elevation-z8">  
+  <!-- Courses Dropdown -->
+  <mat-form-field>
+    <mat-select [(ngModel)]="selectedCourseId" placeholder="Select a course" (ngModelChange)="getEnrolledStudents()">
+      <mat-option *ngFor="let course of courseList" [value]="course.id">
+        {{course.departmentName}}-{{course.courseCode}}-{{course.year}}-{{course.duration}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Student Emails Field & Enrollemnt Button -->
+  <span *ngIf="selectedCourseId != null" class="addStudentGroup">
+    <mat-form-field id="studentEmails">
+      <input matInput placeholder="Student Email(s)" [(ngModel)]="enroll.studentEmails">
+      <mat-hint>Separate emails by semicolons or spaces. (i.e. ab12cd@brocku.ca;ac12bd@brocku.ca;...)</mat-hint>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="enrollStudents()" [disabled]="invalid()">Enroll Students</button>
+  </span>
+</mat-card>
+
+<!-- Display Selected Course Information -->
+<app-course-info *ngIf="selectedCourseId != null" [courseId]="selectedCourseId" class="mat-elevation-z8"></app-course-info>
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf="selectedCourseId != null">
+  <!-- Student Email Column -->
+  <ng-container matColumnDef="StudentEmail">
+    <mat-header-cell *matHeaderCellDef> Student Email </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+  </ng-container>
+
+  <!-- Student Number Column -->
+  <ng-container matColumnDef="StudentNumber">
+    <mat-header-cell *matHeaderCellDef> Student Number </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.studentNumber}} </mat-cell>
+  </ng-container>
+
+  <!-- Remove From Course Button Column -->
+  <ng-container matColumnDef="Details">
+    <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+    <mat-cell *matCellDef="let element">             
+      <button mat-raised-button color="warn" (click)="removeStudentFromCourse(element.id)">Remove From Course</button>            
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

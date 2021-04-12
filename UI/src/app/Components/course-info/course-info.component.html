@@ -1,0 +1,28 @@
+<mat-card class="courseInfoCard mat-elevation-z8">
+  <!-- Course Information Component -->
+  <mat-card-header>
+    <mat-card-title class="cardTitle">Course Info</mat-card-title>
+  </mat-card-header>  
+  <mat-card-content>
+    <!-- Display Department Name -->
+    <mat-form-field>
+      <input matInput [value]="course.departmentName" placeholder="Department Name" disabled>
+    </mat-form-field>
+    &nbsp;
+    <!-- Display Course Code -->
+    <mat-form-field>
+      <input matInput [value]="course.courseCode" placeholder="Course Code" disabled>
+    </mat-form-field>
+    &nbsp;
+    <!-- Display Course Year -->
+    <mat-form-field>
+      <input matInput [value]="course.year" placeholder="Year" disabled>
+    </mat-form-field>
+    &nbsp;
+    <!-- Display Course Duration -->
+    <mat-form-field>
+      <input matInput [value]="course.duration" placeholder="Duration" disabled>
+    </mat-form-field>
+
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,49 @@
+<h3>Courses</h3>
+
+
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Department Column -->
+  <ng-container matColumnDef="Department">
+    <mat-header-cell *matHeaderCellDef> Department </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.departmentName}} </mat-cell>
+  </ng-container>
+
+  <!-- Course Code Column -->
+  <ng-container matColumnDef="CourseCode">
+    <mat-header-cell *matHeaderCellDef> Course Code </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.courseCode}} </mat-cell>
+  </ng-container>
+
+  <!-- Course Duration Column -->
+  <ng-container matColumnDef="Duration">
+    <mat-header-cell *matHeaderCellDef> Duration </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.duration}} </mat-cell>
+  </ng-container>
+
+   <!-- Course Year Column -->
+   <ng-container matColumnDef="Year">
+    <mat-header-cell *matHeaderCellDef> Year </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.year}} </mat-cell>
+  </ng-container>
+
+  <!-- View & Edit Course Button Column -->
+  <ng-container matColumnDef="ViewDetails">
+    <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-raised-button color="primary" [routerLink]="['/courses/', element.id]">View</button>
+      <div *ngIf="authorizationRoleId == 2 || authorizationRoleId == 1">          
+          &nbsp;
+          <button mat-raised-button color="accent"
+            [routerLink]="['/courses/edit/', element.id]">Edit</button>
+        </div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<!-- Add Course Button -->
+<span *ngIf="authorizationRoleId == 2 || authorizationRoleId == 1">
+  <button mat-raised-button color="primary" [routerLink]="['/courses/add']" id="courseButton">Add Course</button>
+</span>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FileExtensions>
+  <FileType id="java">
+    <Extension>.java</Extension>
+  </FileType>
+  <FileType id="cpp">
+    <Extension>.cpp</Extension>
+    <Extension>.h</Extension>
+  </FileType>
+  <FileType id="c">
+    <Extension>.c</Extension>
+    <Extension>.h</Extension>
+  </FileType>
+</FileExtensions>

@@ -1,0 +1,34 @@
+<div class="flex-center-container">
+  <!-- Upload Files For Plagiarism Detection -->
+  <mat-card class="flex-center-content">
+    <h3>Upload Test Files</h3>
+    <hr>
+    <br>
+    <div class="form-container">
+      <ng-container>
+        <!-- File Selector Button -->
+        <div>
+          <input id="fileSelector" type="file" #file placeholder="Choose file" required>
+        </div>
+        <br>
+        <!-- Submission Type Dropdown -->
+        <div>
+          <mat-form-field>
+            <mat-select placeholder="Submission Type" [(ngModel)]="fileType" required>
+              <mat-option *ngFor="let type of fileTypes" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </ng-container>
+    </div>
+    <!-- Submit Button -->
+    <br>
+    <div>
+      <button type="button" mat-raised-button color="primary" (click)="uploadFile(file.files)"
+        [disabled]="invalid(file.files)">Submit</button>
+    </div>
+  </mat-card>
+
+</div>

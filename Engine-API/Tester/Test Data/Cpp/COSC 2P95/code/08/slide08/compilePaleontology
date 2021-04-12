@@ -1,0 +1,7 @@
+#!/bin/bash
+rm -rf build/paleontology
+rm -r *.o
+g++ -c src/paleontology/Velociraptor.cpp src/paleontology/Archaeopteryx.cpp src/paleontology/Dinosaur.cpp -I src/feathers -I src/ornithology
+mkdir -p build/paleontology
+mv *.o build/paleontology
+ar rs lib/libPaleontology.a build/paleontology/Dinosaur.o build/paleontology/Velociraptor.o build/paleontology/Archaeopteryx.o
